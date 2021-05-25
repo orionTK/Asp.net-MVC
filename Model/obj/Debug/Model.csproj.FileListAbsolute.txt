@@ -1,2 +1,0 @@
-C:\Users\Admin\Desktop\test\SuperWare\Model\obj\Debug\Model.csprojAssemblyReference.cache
-C:\Users\Admin\Desktop\test\SuperWare\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
