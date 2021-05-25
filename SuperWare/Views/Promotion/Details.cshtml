@@ -1,0 +1,47 @@
+﻿@model SuperWare.Models.Promotion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    <h2>Details Promotion</h2>
+
+<div>
+   
+    <dl class="dl-horizontal">
+        <dt>
+            Promotion ID
+        </dt>
+        <dd>
+            @Html.DisplayNameFor(model => model.PromotionID)
+        </dd>
+        <dt>
+            Promotion's Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PromotionName)
+        </dd>
+
+        <dt>
+            Discount Percent
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiscountPercent)%
+        </dd>
+
+        <dt>
+           Time Created at
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeCreated)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PromotionID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

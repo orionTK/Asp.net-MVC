@@ -1,0 +1,42 @@
+﻿@model SuperWare.Models.Category
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    <h2>Details Categories</h2>
+
+<div class="container">
+    
+  
+    <table class="table">
+        <tr>
+            <th>
+                Category ID
+            </th>
+            <th>
+                Category's Name
+            </th>
+            <th>
+               Time Created at
+            </th>
+            <th></th>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.CategoryID)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.TimeCreated)
+            </td>
+        </tr>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CategoryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

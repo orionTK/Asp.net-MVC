@@ -1,0 +1,42 @@
+﻿@model SuperWare.Models.Role
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    <h2>Details Role</h2>
+
+    <div class="container">
+
+
+        <table class="table">
+            <tr>
+                <th>
+                    Role ID
+                </th>
+                <th>
+                    Role's Name
+                </th>
+                <th>
+                    Time Created at
+                </th>
+                <th></th>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.RoleID)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.RoleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.TimeCreated)
+                </td>
+            </tr>
+        </table>
+    </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RoleID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,42 @@
+﻿@model SuperWare.Models.Pattern
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    <h2>Details Pattern</h2>
+
+<div>
+    
+  
+    <table class="table">
+        <tr>
+            <th>
+                Pattern ID
+            </th>
+            <th>
+                Pattern's Name
+            </th>
+            <th>
+               Time Created at
+            </th>
+            <th></th>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.PatternID)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PatternName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.TimeCreated)
+            </td>
+        </tr>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PatternID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,54 @@
+﻿@model SuperWare.Models.Warehouse
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    <h2>Details Warehouse</h2>
+
+    <div class="container">
+
+
+        <table class="table">
+            <tr>
+                <th>
+                    Warehouse ID
+                </th>
+                <th>
+                    Warehouse's Name
+                </th>
+                <th>
+                    Addresss
+                </th>
+                <th>
+                    Priority
+                </th>
+                <th>
+                    Time Created at
+                </th>
+                <th></th>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.WarehouseID)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.WarehouseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Addresss)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Priority)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.TimeCreated)
+                </td>
+            </tr>
+        </table>
+    </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WarehouseID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
