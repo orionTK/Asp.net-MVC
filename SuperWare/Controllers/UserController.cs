@@ -1,6 +1,10 @@
-﻿using System;
+﻿using PagedList;
+using SuperWare.Models;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,55 +12,136 @@ namespace SuperWare.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
-        public ActionResult Index()
+        SuperWareDbContext _db = new SuperWareDbContext();
+
+        // GET: Promotion
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View();
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var list_p = from p in _db.Users
+                         select p;
+
+            //Search
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                list_p = list_p.Where(s => s.UserName.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    list_p = list_p.OrderByDescending(s => s.UserName);
+                    break;
+                case "Date":
+                    list_p = list_p.OrderBy(s => s.TimeCreated);
+                    break;
+                case "date_desc":
+                    list_p = list_p.OrderByDescending(s => s.TimeCreated);
+                    break;
+                default:
+                    list_p = list_p.OrderBy(s => s.UserName);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+            return View(list_p.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: User/Details/5
+        // GET: Promotion/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var p = _db.Users.Find(id);
+
+            if (p == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(p);
         }
 
-        // GET: User/Create
+        // GET: Promotion/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: User/Create
+        // POST: Promotion/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(User u)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
 
-                return RedirectToAction("Index");
+                    // TODO: Add insert logic here
+                    u.TimeCreated = DateTime.Now;
+                    _db.Users.Add(u);
+                    _db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
-            catch
+            catch (DataException)
             {
-                return View();
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
+            return View();
         }
 
-        // GET: User/Edit/5
+        // GET: Promotion/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var r = _db.Users.Find(id);
+
+            if (r == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(r);
         }
 
-        // POST: User/Edit/5
+        // POST: Promotion/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, User user)
         {
+
+            var u = _db.Users.Find(id);
             try
             {
-                // TODO: Add update logic here
+                u.UserName = user.UserName;
+                u.Password = user.Password;
+                _db.SaveChangesAsync();
 
                 return RedirectToAction("Index");
+
             }
             catch
             {
@@ -64,20 +149,21 @@ namespace SuperWare.Controllers
             }
         }
 
-        // GET: User/Delete/5
+        // GET: Promotion/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(_db.Warehouses.Find(id));
         }
 
-        // POST: User/Delete/5
+        // POST: Promotion/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                var p = _db.Users.Find(id);
+                _db.Users.Remove(p);
+                _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             catch

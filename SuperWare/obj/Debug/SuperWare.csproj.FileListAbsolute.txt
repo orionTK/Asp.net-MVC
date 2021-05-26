@@ -85,3 +85,5 @@ C:\Users\Admin\Desktop\test\SuperWare\SuperWare\bin\PagedList.dll
 C:\Users\Admin\Desktop\test\SuperWare\SuperWare\bin\PagedList.Mvc.dll
 C:\Users\Admin\Desktop\test\SuperWare\SuperWare\bin\PagedList.xml
 C:\Users\Admin\Desktop\test\SuperWare\SuperWare\bin\PagedList.Mvc.xml
+C:\Users\Admin\Desktop\test\SuperWare\SuperWare\obj\Debug\SuperWare.Properties.Resources.resources
+C:\Users\Admin\Desktop\test\SuperWare\SuperWare\obj\Debug\SuperWare.csproj.GenerateResource.cache
