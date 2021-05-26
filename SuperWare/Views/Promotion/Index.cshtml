@@ -1,0 +1,81 @@
+﻿@model PagedList.IPagedList<SuperWare.Models.Promotion>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List Promotions</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create", new { @class = "btn btn-default" })*@
+    <a class="btn btn-primary" style="margin:10px" href='@Url.Action("Create", "Promotion")'><i class="fa fa-plus"></i> Add New</a>
+</p>
+
+<div class="container">
+
+    @using (Html.BeginForm())
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }
+
+    <table class="table">
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Promotion ID
+            </th>
+            <th>
+                @Html.ActionLink("Promotion's Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+
+            </th>
+            <th>
+                Discount Percent
+            </th>
+            <th>
+                @Html.ActionLink("Time Created at", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+           
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a class="btn btn-success" href='@Url.Action("Edit", "Promotion")\@item.PromotionID'><i class="fa fa-pencil"></i> Edit</a>
+                    <a class="btn btn-default" href='@Url.Action("Details", "Promotion")\@item.PromotionID'><i class="fa fa-info"></i> Details</a>
+                    <a class="btn btn-danger" href='@Url.Action("Delete", "Promotion")\@item.PromotionID'><i class="fa fa-trash"></i> Delete</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PromotionID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PromotionName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountPercent)%
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeCreated)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+</div>
+@if (Model.Count() == 0)
+{
+    <p style="text-align:center"><strong>No data found</strong></p>
+}
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

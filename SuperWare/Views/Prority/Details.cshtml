@@ -1,0 +1,42 @@
+﻿@model SuperWare.Models.Prority
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details Prorities</h2>
+
+<div class="container">
+
+
+    <table class="table">
+        <tr>
+            <th>
+                Prority ID
+            </th>
+            <th>
+                Prority Content
+            </th>
+            <th>
+                Time Created at
+            </th>
+            <th></th>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.ProrityID)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.ProrityContent)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.TimeCreated)
+            </td>
+        </tr>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProrityID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

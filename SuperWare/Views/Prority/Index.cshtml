@@ -1,0 +1,69 @@
+﻿@model PagedList.IPagedList<SuperWare.Models.Prority>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List Prorities</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create", new { @class = "btn btn-default" })*@
+    <a class="btn btn-primary" style="margin:10px" href='@Url.Action("Create", "Prority")'><i class="fa fa-plus"></i> Add New</a>
+</p>
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }
+    <table class="table">
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Prority ID
+            </th>
+            <th>
+                @Html.ActionLink("Prority Content", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Time Created at", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a class="btn btn-success" href='@Url.Action("Edit", "Prority")\@item.ProrityID'><i class="fa fa-pencil"></i> Edit</a>
+                    <a class="btn btn-default" href='@Url.Action("Details", "Prority")\@item.ProrityID'><i class="fa fa-info"></i> Details</a>
+                    <a class="btn btn-danger" href='@Url.Action("Delete", "Prority")\@item.ProrityID'><i class="fa fa-trash"></i> Delete</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProrityID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProrityContent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeCreated)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>
+@if (Model.Count() == 0)
+{
+    <p style="text-align:center"><strong>No data found</strong></p>
+}
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

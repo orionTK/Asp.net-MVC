@@ -1,0 +1,42 @@
+﻿@model SuperWare.Models.ReqStock
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    <h2>Details ReqStock</h2>
+
+    <div class="container">
+
+
+        <table class="table">
+            <tr>
+                <th>
+                    ReqStock ID
+                </th>
+                <th>
+                    ReqStock Content
+                </th>
+                <th>
+                    Time Created at
+                </th>
+                <th></th>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.ReqStockID)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ReqStockContent)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.TimeCreated)
+                </td>
+            </tr>
+        </table>
+    </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ReqStockID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

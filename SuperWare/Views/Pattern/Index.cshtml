@@ -1,0 +1,117 @@
+﻿@model PagedList.IPagedList<SuperWare.Models.Pattern>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+}
+
+    <h2>List Patterns</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create", new { @class = "btn btn-default" })*@
+    <a class="btn btn-primary" style="margin:10px" href='@Url.Action("Create", "Pattern")'><i class="fa fa-plus"></i> Add New</a>
+</p>
+
+
+
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }
+    <table class="table">
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Pattern's ID
+            </th>
+            <th>
+                @Html.ActionLink("Pattern's Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+
+                @Html.ActionLink("Pattern's Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter }))
+
+            </th>
+            <th>
+                @Html.ActionLink("Time Created at", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a class="btn btn-success" href='@Url.Action("Edit", "Pattern")\@item.PatternID'><i class="fa fa-pencil"></i> Edit</a>
+                    <a class="btn btn-default" href='@Url.Action("Details", "Pattern")\@item.PatternID'><i class="fa fa-info"></i> Details</a>
+                    <a class="btn btn-danger" href='@Url.Action("Delete", "Pattern")\@item.PatternID'><i class="fa fa-trash"></i> Delete</a>
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PatternID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PatternName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeCreated)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>
+
+@if (Model.Count() == 0)
+{
+    <p style="text-align:center">No data found, Please click on <b>Add New</b> Button </p>
+}
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+@section Scripts {
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+
+
+    <script>
+        var Popup;
+        function PopupForm(url) {
+            var formDiv = $('<div />');
+            $.get(url)
+                .done(function (response) {
+                    formDiv.html(response);
+
+                    Popup = formDiv.dialog({
+                        autoOpen: true,
+                        resizable: false,
+                        title: "Fill Patten Details",
+                        height: 500,
+                        width: 450,
+                        close: function () {
+                            Popup.dialog("destroy").remove();
+                        },
+                        position: {
+                            my: "left center",
+                            at: "left center"
+                        }
+                    })
+
+                });
+        };
+    </script>
+
+}

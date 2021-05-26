@@ -1,0 +1,62 @@
+﻿@model SuperWare.Models.Customer
+
+@{
+    ViewBag.Title = "Customers";
+}
+
+<h2>Details Customers</h2>
+
+<div class="container">
+    
+  
+    <table class="table">
+        <tr>
+            <th>
+                Customer ID
+            </th>
+            <th>
+                Customer's Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Email
+            </th>
+            
+            <th>
+                Time Created at
+            </th>
+            <th></th>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.CustomerID)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.TimeCreated)
+            </td>
+        </tr>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CustomerID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
